@@ -16,6 +16,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
+import { Link } from "@inertiajs/react"
 
 export function NavMain({
   items,
@@ -71,10 +72,10 @@ export function NavMain({
             // Si el elemento no tiene subelementos, muestra un enlace simple
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton tooltip={item.title} asChild>
-                <a href={item.url} className="flex items-center">
+                <Link href={item.url} className="flex items-center">
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           )
