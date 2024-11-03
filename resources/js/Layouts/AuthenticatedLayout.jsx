@@ -5,10 +5,7 @@ export default function Authenticated({ user, children }) {
     return (
         <SidebarProvider>
             <AppSidebar user={user} />
-            <main className="w-full">
-                <SidebarTrigger />
-                {children}
-            </main>
+            {children}
         </SidebarProvider>
     );
 }

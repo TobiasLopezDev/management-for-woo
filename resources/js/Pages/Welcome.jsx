@@ -16,16 +16,8 @@ export default function Welcome({ toggleDarkMode }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
+    <div className="min-h-screen flex items-center justify-center bg-sidebar text-sidebar-foreground">
       <Head title="Management for Woo" />
-
-      {/* Botón para alternar entre claro/oscuro */}
-      <button
-        onClick={toggleDarkMode}
-        className="absolute top-4 right-4 p-2 bg-gray-300 rounded dark:bg-gray-700 dark:text-white"
-      >
-        Toggle Dark Mode
-      </button>
 
       <div className="w-full max-w-md p-6 rounded-lg bg-[hsl(var(--card))] text-[hsl(var(--card-foreground))] shadow-lg">
         <CardHeader className="text-center">

@@ -10,7 +10,7 @@ import {
   User,
 } from "lucide-react"
 
-import { Link } from "@inertiajs/react" // Importa Link de Inertia
+import { Link } from "@inertiajs/react"
 import {
   Avatar,
   AvatarFallback,
@@ -40,7 +40,7 @@ export function NavUser({
     name: string
     email: string
     avatar: string
-    logoutUrl: string // Asegúrate de incluir logoutUrl
+    logoutUrl: string
   }
 }) {
   const { isMobile } = useSidebar()
@@ -48,13 +48,18 @@ export function NavUser({
 
   // Cambia el modo oscuro/claro
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode)
-    document.body.classList.toggle("dark")
+    const newDarkMode = !darkMode
+    setDarkMode(newDarkMode)
+    if (newDarkMode) {
+      document.documentElement.classList.add("dark")
+    } else {
+      document.documentElement.classList.remove("dark")
+    }
   }
 
   // Sincroniza el estado inicial de dark mode al cargar el componente
   useEffect(() => {
-    setDarkMode(document.body.classList.contains("dark"))
+    setDarkMode(document.documentElement.classList.contains("dark"))
   }, [])
 
   return (
