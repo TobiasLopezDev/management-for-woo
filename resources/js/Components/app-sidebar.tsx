@@ -4,7 +4,8 @@ import {
   Package,
   ShoppingBag,
   BarChart2,
-} from "lucide-react"; // Ajusta los iconos según sea necesario
+  LayoutDashboard
+} from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
@@ -19,6 +20,11 @@ import {
 export function AppSidebar({ user, ...props }) {
   const data = {
     navMain: [
+      {
+        title: "Escritorio",
+        url: "/dashboard", // Actualiza la URL a la ruta de tu dashboard
+        icon: LayoutDashboard,
+      },
       {
         title: "Productos",
         url: "#",
