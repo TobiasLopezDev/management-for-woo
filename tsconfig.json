@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "jsx": "react-jsx", // Configura TypeScript para compilar JSX con React
+        "allowJs": true, // Permite archivos .js junto con .ts
+        "checkJs": true, // Opcional, para verificar errores en archivos .js
+        "esModuleInterop": true, // Habilita la interoperabilidad con módulos ES
+        "resolveJsonModule": true, // Permite importar archivos JSON
+        "isolatedModules": true, // Necesario para Next.js y otros frameworks que soportan SSR
+        "strict": true, // Habilita el modo estricto de TypeScript (recomendado)
+        "noEmit": true, // Evita que TypeScript genere archivos .js, ya que Vite maneja esto
+        "baseUrl": "./",
+        "paths": {
+            "@/*": [
+                "./resources/js/*"
+            ]
+        }
+    },
+    "include": [
+        "resources/js/**/*.jsx",
+        "resources/js/**/*.js"
+    ]
+}
