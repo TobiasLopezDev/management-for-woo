@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { AppSidebar } from "@/components/app-sidebar"
 import {
   Breadcrumb,
@@ -29,9 +29,9 @@ export default function Dashboard({ auth }) {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
+                  <Link href="/dashboard">
                     Building Your Application
-                  </BreadcrumbLink>
+                  </Link>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
