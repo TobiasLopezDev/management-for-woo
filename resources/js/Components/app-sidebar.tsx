@@ -27,11 +27,11 @@ export function AppSidebar({ user, ...props }) {
       },
       {
         title: "Productos",
-        url: "#",
+        url: "/products",
         icon: Box,
         items: [
-          { title: "Añadir Producto", url: "#" },
-          { title: "Ver Todos los Productos", url: "#" },
+          { title: "Añadir Producto", url: "/products/create" },
+          { title: "Ver Todos los Productos", url: "/products" },
           { title: "Atributos", url: "#" },
         ],
       },
