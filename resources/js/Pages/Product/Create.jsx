@@ -13,7 +13,7 @@ import {
   SidebarInset,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { AddProductForm } from '@/Components/Forms/AddProduct';
+import { AddProductForm } from '@/components/Forms/AddProduct';
 
 export default function CreateProduct({ auth }) {
   const { data, setData, post, errors } = useForm({

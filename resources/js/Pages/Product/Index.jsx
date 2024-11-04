@@ -13,7 +13,7 @@ import {
   SidebarInset,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import ProductTable from '@/Components/productTable';
+import ProductTable from '@/components/productTable';
 
 export default function Index({ auth }) {
   return (
