@@ -14,8 +14,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': resolve(__dirname, 'resources/js'),
-            components: resolve(__dirname, 'resources/js/components'),
-            screens: resolve(__dirname, 'resources/js/screens'),
+            '@/components': resolve(__dirname, 'resources/js/Components'),
         },
     },
     build: {
