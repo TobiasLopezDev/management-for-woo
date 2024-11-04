@@ -40,8 +40,6 @@ jobs:
       # 4. Instalar dependencias de Node.js y compilar el proyecto frontend
       - name: Clean npm cache and install dependencies 
         run: | 
-            npm cache clean --force 
-            rm -rf node_modules 
             npm install 
             npm run build
 
