@@ -12,6 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 0. Setup Node.js
+      - name: Setup Node.js 
+        uses: actions/setup-node@v2 
+        with: 
+            node-version: '18'
       # 1. Clonar el repositorio en la máquina de GitHub Actions
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -33,10 +38,12 @@ jobs:
           rm .env.example
 
       # 4. Instalar dependencias de Node.js y compilar el proyecto frontend
-      - name: Install Node.js and Build
-        run: |
-          npm install
-          npm run build
+      - name: Clean npm cache and install dependencies 
+        run: | 
+            npm cache clean --force 
+            rm -rf node_modules 
+            npm install 
+            npm run build
 
       # 5. Instalar dependencias de PHP con Composer
       - name: Install PHP Dependencies
