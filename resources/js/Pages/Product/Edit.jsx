@@ -9,17 +9,17 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
+} from "@/Components/ui/breadcrumb";
+import { Separator } from "@/Components/ui/separator";
 import {
   SidebarInset,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Select } from "@/components/ui/select";
-import { Textarea } from '@/components/ui/textarea';
+} from "@/Components/ui/sidebar";
+import { Button } from "@/Components/ui/button";
+import { Input } from "@/Components/ui/input";
+import { Checkbox } from "@/Components/ui/checkbox";
+import { Select } from "@/Components/ui/select";
+import { Textarea } from '@/Components/ui/textarea';
 
 export default function Edit({ auth, product }) {
   const { data, setData, patch, errors } = useForm({

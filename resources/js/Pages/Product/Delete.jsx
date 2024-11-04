@@ -7,13 +7,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
+} from "@/Components/ui/breadcrumb";
+import { Separator } from "@/Components/ui/separator";
 import {
   SidebarInset,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
+} from "@/Components/ui/sidebar";
+import { Button } from "@/Components/ui/button";
 
 export default function Delete({ auth, product }) {
   const { delete: destroy, processing } = useForm();

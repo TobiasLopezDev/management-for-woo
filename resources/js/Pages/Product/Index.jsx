@@ -7,13 +7,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Separator } from "@/components/ui/separator";
+} from "@/Components/ui/breadcrumb";
+import { Separator } from "@/Components/ui/separator";
 import {
   SidebarInset,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
-import ProductTable from '@/components/productTable';
+} from "@/Components/ui/sidebar";
+import ProductTable from '@/Components/productTable';
 
 export default function Index({ auth }) {
   return (

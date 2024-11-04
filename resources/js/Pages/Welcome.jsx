@@ -1,8 +1,8 @@
 import React from 'react';
 import { Head, useForm } from '@inertiajs/react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Input } from '@/Components/ui/input';
+import { Button } from '@/Components/ui/button';
 
 export default function Welcome({ toggleDarkMode }) {
   const { data, setData, post, processing, errors } = useForm({

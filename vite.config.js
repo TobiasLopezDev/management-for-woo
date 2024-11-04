@@ -15,7 +15,6 @@ export default defineConfig({
         alias: {
             '@': resolve(__dirname, 'resources/js'),
             '@/components': resolve(__dirname, 'resources/js/Components'),
-            '@/Components': resolve(__dirname, 'resources/js/Components'),
         },
     },
     build: {

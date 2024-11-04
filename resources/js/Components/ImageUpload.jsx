@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { ContextMenu, ContextMenuItem } from '@/components/ui/context-menu';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Button } from '@/Components/ui/button';
+import { ContextMenu, ContextMenuItem } from '@/Components/ui/context-menu';
+import { Dialog, DialogContent } from '@/Components/ui/dialog';
 import Cropper from 'react-easy-crop'; // Cropper library for image cropping
 
 export default function ImageUpload() {

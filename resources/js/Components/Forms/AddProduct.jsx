@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useForm as useInertiaForm, usePage } from '@inertiajs/react';
 
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/Components/ui/button';
+import { Checkbox } from '@/Components/ui/checkbox';
+import { Input } from '@/Components/ui/input';
+import { Textarea } from '@/Components/ui/textarea';
 import { Package, Boxes } from 'lucide-react';
 
 export function AddProductForm() {
