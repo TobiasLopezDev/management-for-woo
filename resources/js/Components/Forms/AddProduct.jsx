@@ -1,94 +1,58 @@
 import React, { useState } from 'react';
-import { useForm as useInertiaForm } from '@inertiajs/react';
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { useForm as useInertiaForm, usePage } from '@inertiajs/react';
 
 import { Button } from '@/components/ui/button';
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea'; // Assuming Shadcn provides a Textarea component
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
-import { Separator } from '@/components/ui/separator';
+import { Textarea } from '@/components/ui/textarea';
 import { Package, Boxes } from 'lucide-react';
-import ImageUpload from '../ImageUpload';
-
-// Schema de validación
-const formSchema = z.object({
-    title: z.string().min(2, { message: "El título debe tener al menos 2 caracteres." }),
-    sku: z.string().optional(),
-    type: z.enum(['simple', 'variable']),
-    cost: z.number().optional(),
-    price: z.number().optional(),
-    stock_management: z.boolean(),
-    autoGenerateSku: z.boolean(),
-    description: z.string().optional(),
-    images: z.array(z.any()).optional(),
-});
 
 export function AddProductForm() {
-    const { data, setData, post, errors: inertiaErrors } = useInertiaForm({
+    const { errors } = usePage().props; 
+    const { data, setData, post } = useInertiaForm({
         title: '',
         sku: '',
         type: '',
+        parent_sku: '',
         cost: '',
         price: '',
         stock_management: false,
-        autoGenerateSku: true,
         description: '',
         images: [],
     });
 
     const [step, setStep] = useState(1);
 
-    const form = useForm({
-        resolver: zodResolver(formSchema),
-        defaultValues: data,
-    });
-
     const handleTypeSelection = (type) => {
         setData('type', type);
-        form.setValue('type', type);
         setStep(2);
     };
 
-    const handleTitleChange = (e) => {
-        const title = e.target.value;
-        setData('title', title);
-        form.setValue('title', title);
-
-        if (data.autoGenerateSku) {
-            const generatedSku = title.toUpperCase().replace(/\s+/g, '-');
-            setData('sku', generatedSku);
-            form.setValue('sku', generatedSku);
-        }
+    const handleImageChange = (index, value) => {
+        const updatedImages = [...data.images];
+        updatedImages[index] = value;
+        setData('images', updatedImages);
     };
 
-    const handleImageUpload = (e) => {
-        const files = Array.from(e.target.files);
-        setData('images', [...data.images, ...files]);
-        form.setValue('images', [...form.getValues('images'), ...files]);
+    const handleImageRemove = (index) => {
+        const updatedImages = data.images.filter((_, i) => i !== index);
+        setData('images', updatedImages);
+    };
+
+    const addImageField = () => {
+        setData('images', [...data.images, '']);
     };
 
     const nextStep = () => setStep(step + 1);
     const prevStep = () => setStep(step - 1);
 
-    const onSubmit = (formData) => {
-        post(route('products.store'), { data: formData });
+    const onSubmit = (e) => {
+        e.preventDefault();
+        post(route('products.store'));
     };
 
     return (
         <div className="flex flex-col h-full">
-            {/* Step 1: Select Product Type */}
             {step === 1 && (
                 <div className="flex flex-col md:flex-row items-stretch justify-center space-y-4 md:space-y-0 md:space-x-8 w-full h-full">
                     <div
@@ -114,116 +78,104 @@ export function AddProductForm() {
                 </div>
             )}
 
-            {/* Step 2: Product Details */}
             {step === 2 && (
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col h-full">
-                        <div className="space-y-4 flex-grow">
-                            <h2 className="text-lg font-medium text-[hsl(var(--foreground))]">Detalles del Producto</h2>
+                <form onSubmit={onSubmit} className="space-y-4">
+                    <h2 className="text-lg font-medium">Detalles del Producto</h2>
 
-                            <FormField
-                                control={form.control}
-                                name="title"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-[hsl(var(--foreground))]">¿Cuál es el título de tu producto?</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="text"
-                                                placeholder="Enter product title"
-                                                {...field}
-                                                onChange={(e) => {
-                                                    field.onChange(e);
-                                                    handleTitleChange(e);
-                                                }}
-                                                className="border-[hsl(var(--border))] focus:ring-[hsl(var(--primary))] focus:border-[hsl(var(--primary))]"
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                    {/* Título */}
+                    <div>
+                        <label className="block text-sm font-medium">Título del Producto</label>
+                        <Input
+                            value={data.title}
+                            onChange={(e) => setData('title', e.target.value)}
+                            placeholder="Ingrese el título del producto"
+                        />
+                        {errors.title && <div className="text-red-500 text-sm">{errors.title}</div>}
+                    </div>
 
-                            {/* SKU Section */}
-                            <FormField
-                                control={form.control}
-                                name="sku"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-[hsl(var(--foreground))]">SKU</FormLabel>
-                                        <FormControl>
-                                            <div className="flex items-center justify-between mt-1">
-                                                <Input
-                                                    type="text"
-                                                    value={data.sku}
-                                                    readOnly
-                                                    className="text-[hsl(var(--muted-foreground))] px-3 py-2 rounded text-sm"
-                                                />
-                                                <Checkbox
-                                                    checked={data.autoGenerateSku}
-                                                    onCheckedChange={(checked) => {
-                                                        setData('autoGenerateSku', checked);
-                                                        form.setValue('autoGenerateSku', checked);
-                                                        if (checked) {
-                                                            const generatedSku = data.title.toUpperCase().replace(/\s+/g, '-');
-                                                            setData('sku', generatedSku);
-                                                            form.setValue('sku', generatedSku);
-                                                        }
-                                                    }}
-                                                    id="autoGenerateSku"
-                                                    className="ml-2"
-                                                />
-                                                <label htmlFor="autoGenerateSku" className="ml-2 text-sm font-medium text-[hsl(var(--foreground))]">
-                                                    Crear SKU automático
-                                                </label>
-                                            </div>
-                                        </FormControl>
-                                    </FormItem>
-                                )}
-                            />
+                    {/* Descripcion */}
+                    <div>
+                        <label className="block text-sm font-medium">Descripcion del Producto</label>
+                        <Textarea
+                            value={data.description}
+                            onChange={(e) => setData('description', e.target.value)}
+                            placeholder="Ingrese la descripcion del producto"
+                        />
+                        {errors.description && <div className="text-red-500 text-sm">{errors.description}</div>}
+                    </div>
 
-                            {/* Descripción */}
-                            <FormField
-                                control={form.control}
-                                name="description"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-[hsl(var(--foreground))]">Descripción</FormLabel>
-                                        <FormControl>
-                                            <Textarea placeholder="Descripción del producto" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                    {/* SKU */}
+                    <div>
+                        <label className="block text-sm font-medium">SKU</label>
+                        <Input
+                            value={data.sku}
+                            onChange={(e) => setData('sku', e.target.value)}
+                            placeholder="SKU"
+                        />
+                        {errors.sku && <div className="text-red-500 text-sm">{errors.sku}</div>}
+                    </div>
 
-                            {/* Imágenes */}
-                            <FormField
-                                control={form.control}
-                                name="images"
-                                render={() => (
-                                    <FormItem>
-                                        <FormLabel className="text-[hsl(var(--foreground))]">Imágenes</FormLabel>
-                                        <FormControl>
-                                            <input type="file" multiple onChange={handleImageUpload} accept="image/*" />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                        </div>
+                    {/* Costo */}
+                    <div>
+                        <label className="block text-sm font-medium">Costo</label>
+                        <Input
+                            type="number"
+                            value={data.cost}
+                            onChange={(e) => setData('cost', e.target.value)}
+                            placeholder="Costo"
+                        />
+                        {errors.cost && <div className="text-red-500 text-sm">{errors.cost}</div>}
+                    </div>
 
-                        {/* Botones de Navegación */}
-                        <div className="flex justify-between mt-6">
-                            <Button onClick={prevStep} variant="secondary">
-                                Volver
-                            </Button>
-                            <Button type="button" onClick={nextStep}>
-                                Siguiente
-                            </Button>
-                        </div>
-                    </form>
-                </Form>
+                    {/* Precio */}
+                    <div>
+                        <label className="block text-sm font-medium">Precio</label>
+                        <Input
+                            type="number"
+                            value={data.price}
+                            onChange={(e) => setData('price', e.target.value)}
+                            placeholder="Precio"
+                        />
+                        {errors.price && <div className="text-red-500 text-sm">{errors.price}</div>}
+                    </div>
+
+                    {/* Gestión de Inventario */}
+                    <div>
+                        <label className="block text-sm font-medium">Gestión de Inventario</label>
+                        <Checkbox
+                            checked={data.stock_management}
+                            onCheckedChange={(checked) => setData('stock_management', checked)}
+                        />
+                        {errors.stock_management && <div className="text-red-500 text-sm">{errors.stock_management}</div>}
+                    </div>
+
+                    {/* Imágenes */}
+                    <div>
+                        <label className="block text-sm font-medium">Imágenes</label>
+                        {data.images.map((image, index) => (
+                            <div key={index} className="flex items-center gap-2 mb-2">
+                                <Input
+                                    type="url"
+                                    placeholder="URL de imagen"
+                                    value={image}
+                                    onChange={(e) => handleImageChange(index, e.target.value)}
+                                />
+                                <Button type="button" onClick={() => handleImageRemove(index)} variant="destructive">
+                                    Eliminar
+                                </Button>
+                            </div>
+                        ))}
+                        <Button type="button" onClick={addImageField} variant="outline">
+                            Añadir imagen
+                        </Button>
+                        {errors.images && <div className="text-red-500 text-sm">{errors.images}</div>}
+                    </div>
+
+                    <div className="flex justify-between mt-4">
+                        <Button onClick={prevStep} variant="secondary">Volver</Button>
+                        <Button type="submit">Guardar Producto</Button>
+                    </div>
+                </form>
             )}
         </div>
     );

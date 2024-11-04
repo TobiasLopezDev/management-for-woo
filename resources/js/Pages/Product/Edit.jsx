@@ -19,10 +19,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select } from "@/components/ui/select";
+import { Textarea } from '@/components/ui/textarea';
 
 export default function Edit({ auth, product }) {
   const { data, setData, patch, errors } = useForm({
     title: product.title,
+    description: product.description,
     sku: product.sku,
     type: product.type,
     parent_sku: product.parent_sku,
@@ -76,6 +78,17 @@ export default function Edit({ auth, product }) {
                 />
               </div>
 
+              {/* Descripcion */}
+              <div>
+                <label className="block text-sm font-medium">Descripcion del Producto</label>
+                <Textarea
+                  value={data.description}
+                  onChange={(e) => setData('description', e.target.value)}
+                  placeholder="Ingrese la descripcion del producto"
+                />
+                {errors.description && <div className="text-red-500 text-sm">{errors.description}</div>}
+              </div>
+
               {/* SKU */}
               <div>
                 <Input
@@ -84,31 +97,6 @@ export default function Edit({ auth, product }) {
                   onChange={(e) => setData('sku', e.target.value)}
                   error={errors.sku}
                   placeholder="SKU"
-                />
-              </div>
-
-              {/* Type */}
-              <div>
-                <label>Type</label>
-                <Select
-                  value={data.type}
-                  onChange={(e) => setData('type', e.target.value)}
-                >
-                  <option value="simple">Simple</option>
-                  <option value="variable">Variable</option>
-                  <option value="variation">Variation</option>
-                </Select>
-                {errors.type && <div className="text-red-600">{errors.type}</div>}
-              </div>
-
-              {/* Parent SKU */}
-              <div>
-                <Input
-                  label="Parent SKU"
-                  value={data.parent_sku}
-                  onChange={(e) => setData('parent_sku', e.target.value)}
-                  error={errors.parent_sku}
-                  placeholder="Parent SKU"
                 />
               </div>
 

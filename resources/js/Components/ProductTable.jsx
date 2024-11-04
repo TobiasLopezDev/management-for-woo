@@ -78,7 +78,7 @@ export const columns = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuLabel>Acciones</DropdownMenuLabel>
             <DropdownMenuItem><Link href={`/product/view/${product.id}`}>Ver producto</Link></DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem><Link href={`/product/edit/${product.id}`}>Editar producto</Link></DropdownMenuItem>

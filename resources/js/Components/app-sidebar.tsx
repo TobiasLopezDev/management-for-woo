@@ -22,7 +22,7 @@ export function AppSidebar({ user, ...props }) {
     navMain: [
       {
         title: "Escritorio",
-        url: "/dashboard", // Actualiza la URL a la ruta de tu dashboard
+        url: "/dashboard", 
         icon: LayoutDashboard,
       },
       {
@@ -32,44 +32,44 @@ export function AppSidebar({ user, ...props }) {
         items: [
           { title: "Añadir Producto", url: "/products/create" },
           { title: "Ver Todos los Productos", url: "/products" },
-          { title: "Atributos", url: "#" },
+          // { title: "Atributos", url: "#" },
         ],
       },
-      {
-        title: "Stock",
-        url: "#",
-        icon: Package,
-        items: [
-          { title: "Buscar Stock", url: "#" },
-          { title: "Añadir Stock", url: "#" },
-          { title: "Configuración", url: "#" },
-        ],
-      },
-      {
-        title: "Tienda",
-        url: "#",
-        icon: ShoppingBag,
-        items: [
-          { title: "Configuración", url: "#" },
-          { title: "Herramientas", url: "#" },
-        ],
-      },
-      {
-        title: "Informes",
-        url: "#",
-        icon: BarChart2,
-        items: [
-          { title: "Informe de Ventas", url: "#" },
-          { title: "Informe de Órdenes", url: "#" },
-          { title: "Informe de Envíos", url: "#" },
-        ],
-      },
+      // {
+      //   title: "Stock",
+      //   url: "#",
+      //   icon: Package,
+      //   items: [
+      //     { title: "Buscar Stock", url: "#" },
+      //     { title: "Añadir Stock", url: "#" },
+      //     { title: "Configuración", url: "#" },
+      //   ],
+      // },
+      // {
+      //   title: "Tienda",
+      //   url: "#",
+      //   icon: ShoppingBag,
+      //   items: [
+      //     { title: "Configuración", url: "#" },
+      //     { title: "Herramientas", url: "#" },
+      //   ],
+      // },
+      // {
+      //   title: "Informes",
+      //   url: "#",
+      //   icon: BarChart2,
+      //   items: [
+      //     { title: "Informe de Ventas", url: "#" },
+      //     { title: "Informe de Órdenes", url: "#" },
+      //     { title: "Informe de Envíos", url: "#" },
+      //   ],
+      // },
     ],
   };
 
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>{/* Aquí puede ir un logo o texto */}</SidebarHeader>
+      <SidebarHeader></SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>

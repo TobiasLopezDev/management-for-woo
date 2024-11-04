@@ -8,17 +8,27 @@ use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    // Método para mostrar el formulario de creación de un producto
+    /**
+     * Display the form to create a new product.
+     *
+     * @return \Inertia\Response
+     */
     public function create()
     {
         return Inertia::render('Product/Create');
     }
 
-    // Método para almacenar un nuevo producto
+    /**
+     * Store a newly created product in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'title' => 'required|string',
+            'description' => 'nullable|string',
             'sku' => 'required|string|unique:products,sku',
             'type' => 'required|in:simple,variable,variation',
             'parent_sku' => 'nullable|string',
@@ -34,7 +44,11 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'Product created successfully');
     }
 
-    // Método para listar los productos
+    /**
+     * Display a listing of the products.
+     *
+     * @return \Inertia\Response
+     */
     public function index()
     {
         $products = Product::all();
@@ -43,7 +57,12 @@ class ProductController extends Controller
         ]);
     }
 
-    // Método para editar un producto
+    /**
+     * Show the form for editing the specified product.
+     *
+     * @param  int  $id
+     * @return \Inertia\Response
+     */
     public function edit($id)
     {
         $product = Product::findOrFail($id);
@@ -52,10 +71,15 @@ class ProductController extends Controller
         ]);
     }
 
-    // Método para actualizar un producto
+    /**
+     * Update the specified product in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id)
     {
-        // Validación de los datos de entrada
         $validated = $request->validate([
             'title' => 'required|string',
             'sku' => 'required|string|unique:products,sku,' . $id,
@@ -68,11 +92,48 @@ class ProductController extends Controller
             'images.*' => 'url',
         ]);
 
-        // Encontrar el producto y actualizarlo
         $product = Product::findOrFail($id);
         $product->update($validated);
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully');
     }
 
+    /**
+     * Display the specified product.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Inertia\Response
+     */
+    public function view(Product $product)
+    {
+        return Inertia::render('Product/View', [
+            'product' => $product,
+        ]);
+    }
+
+    /**
+     * Show the confirmation page to delete the specified product.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Inertia\Response
+     */
+    public function delete(Product $product)
+    {
+        return Inertia::render('Product/Delete', [
+            'product' => $product,
+        ]);
+    }
+
+    /**
+     * Remove the specified product from storage.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Product $product)
+    {
+        $product->delete();
+
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully');
+    }
 }
