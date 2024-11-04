@@ -33,10 +33,7 @@ jobs:
           rm .env.example
 
       # 4. Instalar dependencias de Node.js y compilar el proyecto frontend
-      - name: Install Node.js and Build
-        run: |
-          npm install
-          npm run build
+      
 
       # 5. Instalar dependencias de PHP con Composer
       - name: Install PHP Dependencies
