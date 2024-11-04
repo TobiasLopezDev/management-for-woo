@@ -12,11 +12,17 @@
         "paths": {
             "@/*": [
                 "./resources/js/*"
+            ],
+            "components/*": [
+                "./resources/js/components/*"
+            ],
+            "screens/*": [
+                "./resources/js/screens/*"
             ]
-        }
+        },
+        "allowSyntheticDefaultImports": true // Permite importaciones por defecto sintéticas
     },
     "include": [
-        "resources/js/**/*.jsx",
-        "resources/js/**/*.js"
+        "resources/js/**/*" // Incluye todos los archivos en la carpeta js
     ]
 }
