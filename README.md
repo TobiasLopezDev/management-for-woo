@@ -15,6 +15,7 @@ Este proyecto es un pequeño CRUD (Crear, Leer, Actualizar, Eliminar) para gesti
 - Leer y visualizar productos existentes.
 - Actualizar información de productos.
 - Eliminar productos.
+- Cambiar entre modo oscuro y modo claro con un interruptor de tema.
 
 ## Acceso al Panel de Prueba
 
@@ -25,7 +26,6 @@ Para probar el repositorio, dirígete a [panel.tobiaslopez.com.ar](https://panel
 
 ## Contribuciones
 
-Este es un proyecto en desarrollo, y estaré realizando nuevas contribuciones cuando tenga tiempo. En menos de 24 horas de desarrollo, he logrado implementar un CRUD muy simple para la gestión de productos. 
+Este es un proyecto en desarrollo, y estaré realizando nuevas contribuciones cuando tenga tiempo. En menos de 24 horas de desarrollo, he logrado implementar un CRUD muy simple para la gestión de productos.
 
 Si tienes sugerencias o quieres contribuir, siéntete libre de abrir un issue o un pull request.
-
