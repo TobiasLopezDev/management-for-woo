@@ -15,7 +15,6 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
     const submit = (e) => {
         e.preventDefault();
-
         patch(route('profile.update'));
     };
 
@@ -23,7 +22,6 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
         <section className={className}>
             <header>
                 <h2 className="text-lg font-medium text-gray-900">Profile Information</h2>
-
                 <p className="mt-1 text-sm text-gray-600">
                     Update your account's profile information and email address.
                 </p>
@@ -31,11 +29,11 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="name" value="Name" className='text-gray-700' />
 
                     <TextInput
                         id="name"
-                        className="mt-1 block w-full"
+                        className="mt-1 block w-full text-gray-900"
                         value={data.name}
                         onChange={(e) => setData('name', e.target.value)}
                         required
@@ -47,12 +45,12 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="email" value="Email" className='text-gray-700' />
 
                     <TextInput
                         id="email"
                         type="email"
-                        className="mt-1 block w-full"
+                        className="mt-1 block w-full text-gray-900"
                         value={data.email}
                         onChange={(e) => setData('email', e.target.value)}
                         required
@@ -70,7 +68,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                                 href={route('verification.send')}
                                 method="post"
                                 as="button"
-                                className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                className="underline text-sm text-blue-600 hover:text-blue-500 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             >
                                 Click here to re-send the verification email.
                             </Link>

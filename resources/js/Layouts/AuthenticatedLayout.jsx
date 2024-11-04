@@ -1,14 +1,11 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 
-export default function Authenticated({ user, header, children }) {
+export default function Authenticated({ user, children }) {
     return (
         <SidebarProvider>
             <AppSidebar user={user} />
-            <main className="w-full">
-                <SidebarTrigger />
-                {children}
-            </main>
+            {children}
         </SidebarProvider>
     );
 }
