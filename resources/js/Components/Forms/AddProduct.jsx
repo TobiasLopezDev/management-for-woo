@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm as useInertiaForm, usePage } from '@inertiajs/react';
+
 import { Button } from '@/Components/ui/button';
 import { Checkbox } from '@/Components/ui/checkbox';
 import { Input } from '@/Components/ui/input';
@@ -21,28 +22,33 @@ export function AddProductForm() {
     });
 
     const [step, setStep] = useState(1);
-    const [customErrors, setCustomErrors] = useState({});
 
     const handleTypeSelection = (type) => {
         setData('type', type);
         setStep(2);
     };
 
-    const validateForm = () => {
-        const newErrors = {};
-        if (!data.title) newErrors.title = 'El título es obligatorio.';
-        if (!data.sku) newErrors.sku = 'El SKU es obligatorio.';
-        if (!data.cost) newErrors.cost = 'El costo es obligatorio.';
-        if (!data.price) newErrors.price = 'El precio es obligatorio.';
-        setCustomErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+    const handleImageChange = (index, value) => {
+        const updatedImages = [...data.images];
+        updatedImages[index] = value;
+        setData('images', updatedImages);
     };
+
+    const handleImageRemove = (index) => {
+        const updatedImages = data.images.filter((_, i) => i !== index);
+        setData('images', updatedImages);
+    };
+
+    const addImageField = () => {
+        setData('images', [...data.images, '']);
+    };
+
+    const nextStep = () => setStep(step + 1);
+    const prevStep = () => setStep(step - 1);
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (validateForm()) {
-            post(route('products.store'));
-        }
+        post(route('products.store'));
     };
 
     return (
@@ -78,13 +84,13 @@ export function AddProductForm() {
 
                     {/* Título */}
                     <div>
-                        <label className="block text-sm font-medium">Título del Producto *</label>
+                        <label className="block text-sm font-medium">Título del Producto</label>
                         <Input
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
                             placeholder="Ingrese el título del producto"
                         />
-                        {customErrors.title && <div className="text-red-500 text-sm">{customErrors.title}</div>}
+                        {errors.title && <div className="text-red-500 text-sm">{errors.title}</div>}
                     </div>
 
                     {/* Descripcion */}
@@ -100,37 +106,37 @@ export function AddProductForm() {
 
                     {/* SKU */}
                     <div>
-                        <label className="block text-sm font-medium">SKU *</label>
+                        <label className="block text-sm font-medium">SKU</label>
                         <Input
                             value={data.sku}
                             onChange={(e) => setData('sku', e.target.value)}
                             placeholder="SKU"
                         />
-                        {customErrors.sku && <div className="text-red-500 text-sm">{customErrors.sku}</div>}
+                        {errors.sku && <div className="text-red-500 text-sm">{errors.sku}</div>}
                     </div>
 
                     {/* Costo */}
                     <div>
-                        <label className="block text-sm font-medium">Costo *</label>
+                        <label className="block text-sm font-medium">Costo</label>
                         <Input
                             type="number"
                             value={data.cost}
                             onChange={(e) => setData('cost', e.target.value)}
                             placeholder="Costo"
                         />
-                        {customErrors.cost && <div className="text-red-500 text-sm">{customErrors.cost}</div>}
+                        {errors.cost && <div className="text-red-500 text-sm">{errors.cost}</div>}
                     </div>
 
                     {/* Precio */}
                     <div>
-                        <label className="block text-sm font-medium">Precio *</label>
+                        <label className="block text-sm font-medium">Precio</label>
                         <Input
                             type="number"
                             value={data.price}
                             onChange={(e) => setData('price', e.target.value)}
                             placeholder="Precio"
                         />
-                        {customErrors.price && <div className="text-red-500 text-sm">{customErrors.price}</div>}
+                        {errors.price && <div className="text-red-500 text-sm">{errors.price}</div>}
                     </div>
 
                     {/* Gestión de Inventario */}
@@ -140,6 +146,29 @@ export function AddProductForm() {
                             checked={data.stock_management}
                             onCheckedChange={(checked) => setData('stock_management', checked)}
                         />
+                        {errors.stock_management && <div className="text-red-500 text-sm">{errors.stock_management}</div>}
+                    </div>
+
+                    {/* Imágenes */}
+                    <div>
+                        <label className="block text-sm font-medium">Imágenes</label>
+                        {data.images.map((image, index) => (
+                            <div key={index} className="flex items-center gap-2 mb-2">
+                                <Input
+                                    type="url"
+                                    placeholder="URL de imagen"
+                                    value={image}
+                                    onChange={(e) => handleImageChange(index, e.target.value)}
+                                />
+                                <Button type="button" onClick={() => handleImageRemove(index)} variant="destructive">
+                                    Eliminar
+                                </Button>
+                            </div>
+                        ))}
+                        <Button type="button" onClick={addImageField} variant="outline">
+                            Añadir imagen
+                        </Button>
+                        {errors.images && <div className="text-red-500 text-sm">{errors.images}</div>}
                     </div>
 
                     <div className="flex justify-between mt-4">
