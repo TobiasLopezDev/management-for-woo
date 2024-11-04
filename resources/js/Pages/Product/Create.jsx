@@ -13,7 +13,6 @@ import {
   SidebarInset,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-
 import { AddProductForm } from '@/Components/Forms/AddProduct';
 
 export default function CreateProduct({ auth }) {
@@ -30,41 +29,45 @@ export default function CreateProduct({ auth }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    post(route('products.store'));
+    post(route('products.store'), { data });
   };
 
   return (
     <AuthenticatedLayout user={auth.user}>
-      <Head title="Create Product" />
+      <Head title="Crear Producto" />
 
       <SidebarInset>
         {/* Header */}
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4 text-[hsl(var(--border))]" />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <Link href="/dashboard" className="text-[hsl(var(--primary))] hover:text-[hsl(var(--primary-foreground))]">
-                    Dashboard
-                  </Link>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block text-[hsl(var(--muted-foreground))]" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage className="text-[hsl(var(--foreground))]">Create Product</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
+        <header className="flex h-16 items-center gap-2 bg-background text-foreground px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="mr-2 h-4 text-border" />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem className="hidden md:block">
+                <Link href="/dashboard" className="text-primary hover:text-primary-foreground">
+                  Dashboard
+                </Link>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator className="hidden md:block text-muted-foreground" />
+              <BreadcrumbItem>
+                <BreadcrumbPage className="text-foreground">Crear Producto</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </header>
 
         {/* Main Content - Full Width Form */}
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-[hsl(var(--background))]">
-          <div className="rounded-xl bg-[hsl(var(--muted))] p-6 shadow-md flex flex-col gap-4 w-full h-full">
-            <h2 className="text-xl font-semibold text-[hsl(var(--foreground))] mb-4">Create New Product</h2>
+        <div className="flex-1 flex flex-col gap-4 p-4 pt-0 bg-background">
+          <div className="rounded-xl p-6 flex flex-col gap-4 w-full h-full">
+            <h2 className="text-xl font-semibold text-foreground mb-4">Crea tu nuevo producto</h2>
 
-            <AddProductForm/>
+            {/* Formulario de producto */}
+            <AddProductForm
+              data={data}
+              setData={setData}
+              onSubmit={handleSubmit}
+              errors={errors}
+            />
           </div>
         </div>
       </SidebarInset>

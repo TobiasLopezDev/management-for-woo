@@ -45,6 +45,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    
+    Route::get('/product/view/{product}/', [ProductController::class, 'edit'])->name('products.edit');
+    
+    Route::get('/product/edit/{product}/', [ProductController::class, 'edit'])->name('products.edit');
+    Route::patch('/product/edit/{product}/', [ProductController::class, 'update'])->name('products.update');
+
+    Route::get('/product/delete/{product}/', [ProductController::class, 'edit'])->name('products.edit');
 });
 
 require __DIR__.'/auth.php';
